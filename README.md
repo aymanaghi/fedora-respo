@@ -1,17 +1,10 @@
-[![🐧 Fedora Respo](https://img.shields.io/badge/Fedora-Respo-3584e4?logo=fedora&logoColor=white)](https://github.com/aymanaghi/fedora-respo)
+# 🐧 Fedora Respo
+### Your open-source Fedora knowledge base — practical, copy-paste friendly.
 
-🐧 Fedora Respo 2028  
-Your concise, effective, personal Fedora Linux reference.
+> 💡 For new devs. By a dev who cares.
 
-Files:
-- fedora-respo.txt
-- fedora-pro-tips.md
-- fedora-2028-respo.txt
-- configs/
-- apply-tuning.sh
+- [fedora-respo.txt](./fedora-respo.txt) — Command cheat sheet
+- [fedora-2028-respo.txt](./fedora-2028-respo.txt) — Ultra-condensed
+- [apply-tuning.sh](./apply-tuning.sh) — One-click tuning
 
-Quick Start:
-./apply-tuning.sh
-less fedora-2028-respo.txt
-
-Keep calm and sudo dnf upgrade
+✨ Public Domain. Fork. Improve. Share.
