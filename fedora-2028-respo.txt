@@ -1,0 +1,58 @@
+==========================================
+ FEDORA 2028 — PRO TIPS (Respo Only)
+==========================================
+
+🔹 SYSTEM
+sudo dnf upgrade --refresh              # Update
+sudo dnf install dnf5 && sudo dnf5 ...  # Faster dnf
+sudo dnf install earlyoom && sudo systemctl enable --now earlyoom
+
+🔹 SWAP & MEMORY (SSD/Desktop)
+echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/90-swappiness.conf
+echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.d/90-swappiness.conf
+sudo sysctl --system
+
+🔹 SECURITY
+sudo dnf install dnf-plugin-security
+sudo dnf update --security              # Security-only updates
+# Kernel hardening (default in F40+):
+#   fs.protected_* = 1, rp_filter=2, accept_redirects=0
+
+🔹 NETWORK
+echo 'net.core.default_qdisc=fq_codel' | sudo tee /etc/sysctl.d/99-qdisc.conf
+sudo sysctl --system                    # Fixes bufferbloat
+
+🔹 NVIDIA (akmod)
+sudo dnf install rpmfusion-free-release rpmfusion-nonfree-release
+sudo dnf upgrade --refresh
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
+sudo akmods --force && sudo dracut --force && sudo reboot
+nvidia-smi                              # Verify
+
+🔹 DESKTOP (GNOME)
+Super+`     → Switch app windows
+Super+#     → Launch dock app #
+Alt+F2 → r  → Restart GNOME Shell
+gsettings set org.gnome.desktop.interface scaling-factor 2  # HiDPI fix (X11)
+
+🔹 CONTAINERS
+podman run -it --rm alpine sh         # Rootless
+systemctl --user enable --now podman-auto-update.timer
+
+🔹 FLATPAK
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+systemctl --user enable --now flatpak-update.timer
+
+🔹 TROUBLESHOOT
+journalctl -b -1                      # Last boot log
+Alt+F2 → r                            # GNOME freeze fix
+sudo dnf clean all && sudo dnf makecache  # DNF broken?
+
+🔹 REBOOT-PROOF TUNING
+→ Keep configs in /etc/sysctl.d/*.conf
+→ Use rpm-ostree on Silverblue: rpm-ostree install <pkg>
+
+==========================================
+Keep it. Share it. sudo wisely.
+Respo v2028 — Optimized for speed & sanity.
+==========================================

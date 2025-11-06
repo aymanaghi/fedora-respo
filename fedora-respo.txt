@@ -1,0 +1,69 @@
+==============================================
+ FEDORA LINUX — QUICK REFERENCE ("Respo")
+ Created: $(date)
+==============================================
+
+🔹 COMMON COMMANDS
+-------------------
+sudo dnf upgrade --refresh        # Update system
+sudo dnf install <pkg>            # Install package
+sudo dnf remove <pkg>             # Remove package
+dnf search <keyword>              # Search package
+dnf list installed                # List installed pkgs
+uname -r                          # Kernel version
+cat /etc/fedora-release           # Fedora version
+lspci -vnn | grep VGA -A 12       # Check GPU
+ip a                              # Show IP/network
+systemctl status <service>        # Service status
+nano filename                     # Edit file (see below)
+
+🔹 NANO EDITOR CHEAT SHEET
+----------------------------
+Ctrl + O  → Save (Write Out)
+Ctrl + X  → Exit
+Ctrl + W  → Search
+Ctrl + K  → Cut line
+Ctrl + U  → Paste line
+Ctrl + _  → Go to line number
+Ctrl + G  → Help (in nano)
+
+💡 Tip: Enable line numbers permanently:
+   echo 'set linenumbers' >> ~/.nanorc
+
+🔹 INSTALL NVIDIA DRIVERS (akmod)
+---------------------------------
+✅ Step 1: Enable RPM Fusion
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf upgrade --refresh
+
+✅ Step 2: Install NVIDIA (akmod + CUDA support)
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
+
+✅ Step 3: Rebuild & reboot
+sudo akmods --force
+sudo dracut --force
+sudo reboot
+
+✅ Step 4: Verify
+nvidia-smi   # Should show GPU & driver info
+
+⚠️ Troubleshooting:
+- If black screen: Boot into recovery → remove nvidia → use nouveau
+- Prefer X11? At GDM login: click gear (⚙️) → "GNOME on Xorg"
+- Secure Boot: may require module signing or disabling in BIOS
+
+🔹 BONUS TIPS
+--------------
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo dnf install dnf-plugins-core
+sudo dnf install gnome-tweaks
+
+📌 Resources:
+ • https://rpmfusion.org/Howto/NVIDIA
+ • https://docs.fedoraproject.org/
+
+==============================================
+ Keep this file handy! Edit anytime with:
+   nano ~/fedora-respo.txt
+==============================================
